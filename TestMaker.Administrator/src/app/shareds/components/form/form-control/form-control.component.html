@@ -1,0 +1,32 @@
+<ng-container *ngIf="form.controls[name] as formControl">
+	<mat-form-field *ngIf="!castToFormHiddenField(formControl) && !castToFormRadio(formControl)">
+		<mat-label *ngIf="castToParamsObject(formControl); let formControl"
+			[ngClass]="{'col-md-2': !isFull, 'col-md-12' : isFull }">
+			{{ formControl.params.title == '' ? '' : (formControl.params.title || name) }}
+		</mat-label>
+		<div [ngClass]="{'col-md-10': !isFull, 'col-md-12' : isFull }">
+			<input matInput [id]="name" *ngIf="castToFormInput(formControl); let formControl" [name]="name"
+				[formControl]="formControl">
+			<textarea matInput [id]="name" *ngIf="castToFormTextArea(formControl); let formControl" [name]="name"
+				[formControl]="formControl"
+				(change)="formControl.params.events && formControl.params.events['change'] && formControl.params.events['change']($event, index)"></textarea>
+			<mat-select *ngIf="castToFormSelect(formControl); let formControl" [id]="name" [formControl]="formControl"
+				(change)="formControl.params.events && formControl.params.events['change'] && formControl.params.events['change']($event, index)">
+				<mat-option *ngFor="let option of formControl.params.options" [value]="option.value">
+					{{ option.title }}
+				</mat-option>
+			</mat-select>
+		</div>
+	</mat-form-field>
+	<ng-container *ngIf="castToFormRadio(formControl); let formControl">
+		<mat-radio-group [formControl]="formControl">
+			<mat-radio-button *ngFor="let option of formControl.params.options" 
+				[value]="option.value"
+				(change)="formControl.params.events && formControl.params.events['change'] && formControl.params.events['change']($event, index)">
+				{{option.title}}
+			</mat-radio-button>
+		</mat-radio-group>
+	</ng-container>
+	<input *ngIf="castToFormHiddenField(formControl); let formControl" type="hidden" [name]="name"
+		[formControl]="formControl" />
+</ng-container>

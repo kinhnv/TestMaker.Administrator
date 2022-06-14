@@ -1,0 +1,58 @@
+<mat-card *ngIf="config" class="card">
+  <mat-card-header *ngIf="config.title" class="card-header">
+    <mat-card-title>{{config.title}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="card-body">
+    <table *ngIf="source && config.columns" mat-table [dataSource]="source">
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <ng-container *ngFor="let column of config.columns">
+        <ng-container [matColumnDef]="column.property">
+          <th mat-header-cell *matHeaderCellDef> {{column.title}} </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="column.text && !column.link && !column.event">
+              {{ fillValue(column.text, element) }}
+            </span>
+            <a *ngIf="column.text && column.link && column.link.url && !column.event" 
+              [routerLink]="[ fillValue(column.link.url, element) ]" [queryParams]="column.link.queryParams" >
+              {{ fillValue(column.text, element) }}
+            </a>
+          </td>
+        </ng-container>
+      </ng-container>
+      <thead>
+        <tr >
+          <th *ngFor="let column of config.columns">{{column.title}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of source">
+          <td *ngFor="let column of config.columns">
+            <span *ngIf="column.text && !column.link && !column.event">
+              {{ fillValue(column.text, item) }}
+            </span>
+            <a *ngIf="column.text && column.link && column.link.url && !column.event" 
+              [routerLink]="[ fillValue(column.link.url, item) ]" [queryParams]="column.link.queryParams" >
+              {{ fillValue(column.text, item) }}
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+  <mat-card-actions class="buttons-right">
+    <ng-container *ngIf="config.buttons" >
+      <ng-container *ngFor="let button of config.buttons">
+        <a mat-stroked-button *ngIf="button && button.link" [routerLink]="[button.link.url]" [queryParams]="button.link.queryParams" 
+            class="btn btn-outline-dark">
+          {{ button.title || 'Thêm mới' }}
+        </a>
+        <a mat-stroked-button *ngIf="button && button.event" (click)="button.event($event)"
+            class="btn btn-outline-dark">
+          {{ button.title }}
+        </a>
+      </ng-container>
+    </ng-container>
+    <div style="clear: right;"></div>
+  </mat-card-actions>
+</mat-card>

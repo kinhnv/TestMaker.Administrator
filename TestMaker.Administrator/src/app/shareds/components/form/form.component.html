@@ -1,0 +1,57 @@
+<mat-card *ngIf="config" class="card">
+  <mat-card-header *ngIf="config.title" class="card-header">
+    <mat-card-title>{{config.title}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="card-body">
+    <form [formGroup]="config.form" class="form-horizontal"> 
+      <ng-container *ngFor="let name of names">
+        <app-form-control *ngIf="!castToFromTable(config.form.controls[name])" 
+          [form]="config.form" [name]="name">
+        </app-form-control>
+        <div *ngIf="castToFromTable(config.form.controls[name]); let formTable" class="form-group row">
+          <label [for]="name" class="col-md-2 col-form-label">{{ formTable.params.title || name }}</label>
+          <div class="col-md-10">
+            <div class="row" style="margin: 10px 0px 10px 0px; padding-bottom: 10px; border-bottom: solid 1px #c5c5c5; " *ngFor="let formGroup of formTable.controls; let i = index">
+              <div style="width: calc(100% - 72px); float: left;" *ngIf="castToFromGroup(formGroup); let formGroup">
+                <div *ngFor="let name of getNames(formGroup)">
+                  <app-form-control *ngIf="!castToFromTable(formGroup.controls[name])" 
+                    [form]="formGroup" [name]="name" [index]="i"></app-form-control>
+                </div>
+              </div>
+              <div style="width: 64px; float: right;">
+                <button mat-stroked-button class="btn btn-outline-dark">
+                  Xóa
+                </button>
+              </div>
+              <div style="clear: both;"></div>
+            </div>
+            <div>
+              <button mat-stroked-button (click)="addFormGroup(castToFromTable(config.form.controls[name]))" 
+                class="btn btn-outline-dark">
+                Thêm
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="buttons-right">
+      <ng-container *ngIf="config.buttons" >
+        <ng-container *ngFor="let button of config.buttons">
+          <a mat-stroked-button *ngIf="button && button.link" [routerLink]="[button.link.url]" [queryParams]="button.link.queryParams"
+              class="btn btn-outline-dark">
+            {{button.title || 'Thêm mới'}}
+          </a>
+          <a mat-stroked-button *ngIf="button && button.event" 
+              class="btn btn-outline-dark"
+              (click)="button.event($event)">
+            {{button.title || 'Thêm mới'}}
+          </a>
+        </ng-container>
+      </ng-container>
+    </div>
+    <div style="clear: right;"></div>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,25 @@
+<div class="header">Header</div>
+<div class="body">
+    <div class="menu">
+        Menu
+        <nav>
+            <ul>
+                <li>
+                    <a routerLink="/first-component" routerLinkActive="active" ariaCurrentWhenActive="page">First Component</a>
+                </li>
+                <li>
+                    <a routerLink="/second-component" routerLinkActive="active" ariaCurrentWhenActive="page">Second Component</a>
+                </li>
+                <li>
+                    <a routerLink="/test/test-list" routerLinkActive="active" ariaCurrentWhenActive="page">Test list</a>
+                </li>
+                <li>
+                    <a routerLink="/event/event-list" routerLinkActive="active" ariaCurrentWhenActive="page">Event list</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="content">
+        <ng-content></ng-content>
+    </div>
+</div>
