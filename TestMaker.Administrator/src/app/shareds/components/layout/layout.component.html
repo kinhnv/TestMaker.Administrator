@@ -1,20 +1,25 @@
 <div class="header">Header</div>
 <div class="body">
     <div class="menu">
-        Menu
         <nav>
             <ul>
                 <li>
-                    <a routerLink="/first-component" routerLinkActive="active" ariaCurrentWhenActive="page">First Component</a>
+                    <p class="h2">Bài kiểm tra</p>
+                    <ul>
+                        <li>
+                            <a mat-stroked-button class="btn btn-outline-dark" routerLink="/test/test-list" routerLinkActive="active" ariaCurrentWhenActive="page">Bài kiểm tra</a>
+                            <a mat-stroked-button class="btn btn-outline-dark" routerLink="/test/section-list" routerLinkActive="active" ariaCurrentWhenActive="page">Phần kiểm tra</a>
+                            <a mat-stroked-button class="btn btn-outline-dark" routerLink="/test/question-list" routerLinkActive="active" ariaCurrentWhenActive="page">Câu hỏi</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
-                    <a routerLink="/second-component" routerLinkActive="active" ariaCurrentWhenActive="page">Second Component</a>
-                </li>
-                <li>
-                    <a routerLink="/test/test-list" routerLinkActive="active" ariaCurrentWhenActive="page">Test list</a>
-                </li>
-                <li>
-                    <a routerLink="/event/event-list" routerLinkActive="active" ariaCurrentWhenActive="page">Event list</a>
+                    <p class="h2">Sự kiện</p>
+                    <ul>
+                        <li>
+                            <a mat-stroked-button class="btn btn-outline-dark" routerLink="/event/event-list" routerLinkActive="active" ariaCurrentWhenActive="page">Sự kiện</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>

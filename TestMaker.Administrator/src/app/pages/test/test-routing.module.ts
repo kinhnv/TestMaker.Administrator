@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { QuestionComponent } from './question/question.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { SectionComponent } from './section/section.component';
+import { SectionsComponent } from './sections/sections.component';
 import { TestComponent } from './test/test.component';
 import { TestsComponent } from './tests.component';
 
@@ -25,7 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'section-list',
-    component: TestsComponent
+    component: SectionsComponent
   },
   {
     path: 'section-creating',

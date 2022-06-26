@@ -98,6 +98,7 @@ export class EventComponent implements OnInit {
             }));
             this.eventsService.getEvent(this.eventId).subscribe(event => {
                 this.formConfig.form.setValue(event);
+                this.formType.setValue(1);
             });
 
             if (this.pageHelper.isEditingPage) {

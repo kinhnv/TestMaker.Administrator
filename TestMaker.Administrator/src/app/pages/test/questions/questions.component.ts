@@ -38,6 +38,7 @@ export class QuestionsComponent implements OnInit {
 
     ngOnInit() {
         if (this.sectionId) {
+            this.tableConfig.url = `api/Test/Admin/Questions?sectionId=${this.sectionId}`;
             this.tableConfig.buttons = [{
                 title: 'Thêm',
                 link: {

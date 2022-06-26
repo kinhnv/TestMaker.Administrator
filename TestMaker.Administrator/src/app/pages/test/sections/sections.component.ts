@@ -37,12 +37,8 @@ export class SectionsComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        console.log(this.testId);
         if (this.testId) {
-            // this.tableConfig.buttons.find(x => x.title === 'Thêm').link.queryParams = {
-            //     testId: this.testId
-            // };
-
+            this.tableConfig.url = `api/Test/Admin/Sections?testId=${this.testId}`;
             this.tableConfig.columns = [{
                 property: 'name',
                 title: 'Tên',
@@ -53,5 +49,4 @@ export class SectionsComponent implements OnInit {
             }];
         }
     }
-
 }
