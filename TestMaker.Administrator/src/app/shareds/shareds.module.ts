@@ -6,13 +6,15 @@ import { RouterModule } from '@angular/router';
 import { MaterialExampleModule } from '../material.module';
 import { httpInterceptorProviders } from './interceptors';
 import { TestsService, CandidatesService, EventsService, QuestionsService } from './services';
+import { TitleComponent } from './components/title/title.component';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     FormControlComponent,
     FormComponent,
-    TableComponent
+    TableComponent,
+    TitleComponent
   ],
   imports: [
     CommonModule,

@@ -32,6 +32,10 @@ export class FormTable extends FormArray {
         form.push(formGroup);
     }
 
+    removeFormGroup(index: number): void {
+        this.removeAt(index);
+    }
+
     private cloneAbstractControl<C extends AbstractControl>(control: C): C {
         let newControl: C = <any>null;
 

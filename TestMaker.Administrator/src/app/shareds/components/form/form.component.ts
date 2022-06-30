@@ -52,6 +52,12 @@ export class FormComponent implements OnInit {
       form.addFormGroup();
   }
 
+  removeFromGroup(form: FormTable | undefined, index: number): void {
+    if (form) {
+      form.removeFormGroup(index);
+    }
+  }
+
   cloneAbstractControl<T extends AbstractControl>(control: T): T {
     let newControl: T = <any>null;
 

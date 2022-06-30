@@ -13,7 +13,7 @@ export class QuestionsComponent implements OnInit {
     @Input()
     sectionId!: string;
 
-    tableConfig: TableConfig = {
+    tableConfig: TableConfig<any> = {
         title: 'Danh sách câu hỏi',
         url: `api/Test/Admin/Questions`,
         buttons: [{

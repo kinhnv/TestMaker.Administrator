@@ -12,7 +12,7 @@ export class TestsComponent implements OnInit {
 
     constructor() { }
 
-    tableConfig: TableConfig = {
+    tableConfig: TableConfig<any> = {
         title: 'Danh sách bài kiểm tra',
         url: 'api/Test/Admin/Tests',
         buttons: [{

@@ -1,16 +1,18 @@
 import { AbstractControlOptions, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 
+export interface FormConfigButton {
+    title: string;
+    link?: {
+        url: string;
+        queryParams?: any;
+    }
+    event?: ($event: any) => void;
+}
+
 export interface FormConfig {
     id: string;
     title: string;
-    buttons: {
-        title: string;
-        link?: {
-            url: string;
-            queryParams?: any;
-        }
-        event?: ($event: any) => void;
-    }[];
+    buttons: FormConfigButton[];
     form: FormGroup;
 }
 

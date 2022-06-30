@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormConfig, FormHiddenField, FormInput, FormTextArea } from '../../../shareds/components';
+import { TestsService } from 'src/app/shareds/services';
+import { FormConfig, FormConfigButton, FormHiddenField, FormInput, FormSelect, FormTextArea } from '../../../shareds/components';
 import { PageHelper } from '../../../shareds/helpers';
 
 @Component({
@@ -15,28 +16,41 @@ import { PageHelper } from '../../../shareds/helpers';
 export class SectionComponent implements OnInit {
     pageHelper = new PageHelper('/test/section');
 
+    testId!: string;
+
     get isDetailsPage(): boolean {
         return this.pageHelper.isDetailsPage;
     }
-
-    testId!: string;
 
     get sectionId() {
         const pathNameAsArray = location.href.split('?')[0].split('/');
         return pathNameAsArray[pathNameAsArray.length - 1];
     }
 
+    get formTitle(): string {
+        return this.pageHelper.isCreatingPage ? 'Thêm phần kiểm tra' :
+            this.pageHelper.isDetailsPage ? 'Thông tin phần kiểm tra' :
+                'Sửa phần kiểm tra';
+    }
+
+    buttonBack: FormConfigButton = {
+        title: 'Quay lại bài kiểm tra',
+        link: {
+            url: `/test/test-details/${this.testId}`
+        }
+    }
+
+    formTestId = new FormSelect({
+        options: [],
+        formState: this.testId,
+        order: 2,
+        title: 'Bài kiểm tra'
+    });
+
     formConfig: FormConfig = {
         id: 'sectionForm',
-        title: this.pageHelper.isCreatingPage ? 'Thêm phần kiểm tra' :
-            this.pageHelper.isDetailsPage ? 'Thông tin phần kiểm tra' :
-                'Sửa phần kiểm tra',
-        buttons: [{
-            title: 'Quay lại bài kiểm tra',
-            link: {
-                url: `/test/test-details/${this.testId}`
-            }
-        }, this.pageHelper.isEditingPage ? {
+        title: this.formTitle,
+        buttons: [this.buttonBack, this.pageHelper.isEditingPage ? {
             title: 'Quay lại',
             link: {
                 url: this.pageHelper.getDetailsPage(this.sectionId)
@@ -59,7 +73,7 @@ export class SectionComponent implements OnInit {
                     }>(
                         'api/Test/Admin/Sections', value)
                         .subscribe((section) => {
-                            this.router.navigate([this.pageHelper.getDetailsPage(this.sectionId)]);
+                            this.router.navigate([this.pageHelper.getDetailsPage(section.sectionId)]);
                         });
                 }
                 if (this.pageHelper.isEditingPage) {
@@ -77,25 +91,35 @@ export class SectionComponent implements OnInit {
                 order: 1,
                 validatorOrOpts: Validators.required
             }),
-            'testId': new FormHiddenField(this.testId)
+            'testId': this.formTestId
         })
     };
 
     constructor(
         private httpClient: HttpClient,
-        private router: Router
-    ) { }
+        private router: Router,
+        private testsService: TestsService
+    ) {
+        this.testId = new URL(location.href.replace('/#', '')).searchParams.get('testId') || '';
+        this.formTestId.setValue(this.testId);
+    }
 
     ngOnInit() {
+        this.testsService.getTestsAsSelectOptions().subscribe(options => {
+            this.formTestId.params.options = options;
+        });
+
         if (!this.pageHelper.isCreatingPage) {
             this.httpClient.get(`api/Test/Admin/Sections/${this.sectionId}`)
                 .subscribe(section => {
                     this.testId = (<any>section).testId;
-                    if (this.formConfig.buttons[0].link){
+                    if (this.formConfig.buttons[0].link) {
                         this.formConfig.buttons[0].link.url = `/test/test-details/${this.testId}`;
                     }
                     this.formConfig.form.setValue(section);
                 });
+
+            this.formTestId.disable();
         }
 
         if (this.pageHelper.isDetailsPage) {

@@ -37,4 +37,8 @@ export class EventsService {
     editEvent(event: EventForEditing) {
         return this.httpClient.put<EventForDetails>(`api/Event/Admin/Events/${event.eventId}`, event);
     }
+
+    deleteEvent(eventId: string) {
+        return this.httpClient.delete<void>(`api/Event/Admin/Events/${eventId}`);
+    }
 }

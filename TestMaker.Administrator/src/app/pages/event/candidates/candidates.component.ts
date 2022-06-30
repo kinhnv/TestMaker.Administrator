@@ -14,7 +14,7 @@ export class CandidatesComponent implements OnInit {
     @Input()
     eventId!: string;
 
-    tableConfig: TableConfig = {
+    tableConfig: TableConfig<any> = {
         title: 'Danh sách thí sinh',
         url: `api/Event/Admin/Candidates`,
         buttons: [{

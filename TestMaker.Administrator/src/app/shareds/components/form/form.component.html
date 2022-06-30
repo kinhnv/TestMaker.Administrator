@@ -19,7 +19,7 @@
                 </div>
               </div>
               <div style="width: 64px; float: right;">
-                <button mat-stroked-button class="btn btn-outline-dark">
+                <button (click)="removeFromGroup(castToFromTable(config.form.controls[name]), i)" mat-stroked-button class="btn btn-outline-dark">
                   Xóa
                 </button>
               </div>

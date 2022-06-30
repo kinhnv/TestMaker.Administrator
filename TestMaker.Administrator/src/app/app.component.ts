@@ -28,7 +28,7 @@ export class AppComponent {
     }]
   }
 
-  tableConfig: TableConfig = {
+  tableConfig: TableConfig<any> = {
     title: 'Table',
     url: 'http://localhost:40000/api/Admin/Tests',
     columns: [{

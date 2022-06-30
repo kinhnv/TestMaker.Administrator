@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TableConfig } from '../../../shareds/components';
+import { TableConfig, TableConfigButton } from '../../../shareds/components';
 import { PageHelper } from '../../../shareds/helpers';
 
 @Component({
@@ -13,15 +13,17 @@ export class SectionsComponent implements OnInit {
     @Input()
     testId!: string;
 
-    tableConfig: TableConfig = {
+    addSectionButton: TableConfigButton<any> = {
+        title: 'Thêm',
+        link: {
+            url: this.pageHelper.getCreatingPage()
+        }
+    };
+
+    tableConfig: TableConfig<any> = {
         title: 'Danh sách phần kiểm tra',
         url: `api/Test/Admin/Sections`,
-        buttons: [{
-            title: 'Thêm',
-            link: {
-                url: this.pageHelper.getCreatingPage()
-            }
-        }],
+        buttons: [this.addSectionButton],
         columns: [{
             property: 'name',
             title: 'Tên',
@@ -47,6 +49,13 @@ export class SectionsComponent implements OnInit {
                     url: this.pageHelper.getDetailsPage('[sectionId]')
                 }
             }];
+
+            this.addSectionButton.link = {
+                url: this.pageHelper.getCreatingPage(),
+                queryParams: {
+                    testId: this.testId
+                }
+            }
         }
     }
 }

@@ -1,0 +1,6 @@
+<ng-container *ngIf="!title.startsWith('icon_')">
+    {{ title }}
+</ng-container>
+<ng-container *ngIf="title.startsWith('icon_')">
+    <mat-icon  style="margin-bottom: -5px;">{{ title.substring(5) }}</mat-icon>
+</ng-container>

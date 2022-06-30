@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IEventForList } from 'src/app/shareds/models/event/event-for-list.model';
+import { EventsService } from 'src/app/shareds/services';
 import { TableConfig } from '../../shareds/components';
 import { PageHelper } from '../../shareds/helpers';
 
@@ -10,9 +12,16 @@ export class EventsComponent implements OnInit {
 
     pageHelper = new PageHelper('/event/event');
 
-    tableConfig: TableConfig = {
+    tableConfig: TableConfig<IEventForList> = {
         title: 'Danh sách sự kiện',
         url: 'api/Event/Admin/Events',
+        recycleBinConfig: {
+            enable: true,
+            deleteEvent: (item, $event)=> {
+                console.log(item, $event);
+                return this.eventsService.deleteEvent(item.eventId);
+            }
+        },
         buttons: [{
             title: 'Thêm',
             link: {
@@ -27,13 +36,17 @@ export class EventsComponent implements OnInit {
                 url: this.pageHelper.getDetailsPage('[eventId]')
             }
         }, {
+            property: 'type',
+            title: 'Kiểu sự kiện',
+            text: '[type]'
+        }, {
             property: 'code',
             title: 'Mã',
             text: '[code]'
         }]
     };
 
-    constructor() { }
+    constructor(private eventsService: EventsService) { }
 
     ngOnInit() {
     }
