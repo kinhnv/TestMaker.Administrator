@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IApiResult } from 'src/app/shareds/models';
 import { TestsService } from 'src/app/shareds/services';
 import { FormConfig, FormConfigButton, FormHiddenField, FormInput, FormSelect, FormTextArea } from '../../../shareds/components';
 import { PageHelper } from '../../../shareds/helpers';
@@ -65,19 +66,19 @@ export class SectionComponent implements OnInit {
                 if (this.pageHelper.isCreatingPage) {
                     const value = this.formConfig.form.value;
                     value.sectionId = undefined;
-                    this.httpClient.post<{
+                    this.httpClient.post<IApiResult<{
                         sectionId: string;
                         name: string;
                         description: string;
                         testId: string;
-                    }>(
+                    }>>(
                         'api/Test/Admin/Sections', value)
-                        .subscribe((section) => {
-                            this.router.navigate([this.pageHelper.getDetailsPage(section.sectionId)]);
+                        .subscribe((apiResult) => {
+                            this.router.navigate([this.pageHelper.getDetailsPage(apiResult.data.sectionId)]);
                         });
                 }
                 if (this.pageHelper.isEditingPage) {
-                    this.httpClient.put(`api/Test/Admin/Sections/${this.sectionId}`, this.formConfig.form.value)
+                    this.httpClient.put<IApiResult<any>>(`api/Test/Admin/Sections/${this.sectionId}`, this.formConfig.form.value)
                         .subscribe(() => {
                             this.router.navigate([this.pageHelper.getDetailsPage(this.sectionId)]);
                         });
@@ -110,13 +111,13 @@ export class SectionComponent implements OnInit {
         });
 
         if (!this.pageHelper.isCreatingPage) {
-            this.httpClient.get(`api/Test/Admin/Sections/${this.sectionId}`)
-                .subscribe(section => {
-                    this.testId = (<any>section).testId;
+            this.httpClient.get<IApiResult<any>>(`api/Test/Admin/Sections/${this.sectionId}`)
+                .subscribe(apiResult => {
+                    this.testId = (<any>apiResult.data).testId;
                     if (this.formConfig.buttons[0].link) {
                         this.formConfig.buttons[0].link.url = `/test/test-details/${this.testId}`;
                     }
-                    this.formConfig.form.setValue(section);
+                    this.formConfig.form.setValue(apiResult.data);
                 });
 
             this.formTestId.disable();

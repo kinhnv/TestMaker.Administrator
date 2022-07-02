@@ -1,23 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-
-export class EventBase {
-    name!: string;
-    type!: string;
-    testId!: string;
-}
-
-export class EventForCreating extends EventBase { }
-
-export class EventForDetails extends EventBase {
-    eventId!: string;
-    code!: string;
-}
-
-export class EventForEditing extends EventBase {
-    eventId!: string;
-}
+import { map, Observable } from 'rxjs';
+import {
+    IApiResult,
+    IEventForCreating,
+    IEventForDetails,
+    IEventForEditing
+} from 'src/app/shareds/models';
 
 @Injectable({
     providedIn: 'root'
@@ -26,19 +15,51 @@ export class EventsService {
 
     constructor(private httpClient: HttpClient) { }
 
-    getEvent(eventId: string): Observable<EventForDetails> {
-        return this.httpClient.get<EventForDetails>(`api/Event/Admin/Events/${eventId}`);
+    getEvent(eventId: string): Observable<IEventForDetails> {
+        return this.httpClient.get<IApiResult<IEventForDetails>>(`api/Event/Admin/Events/${eventId}`)
+            .pipe(map(x => {
+                if (x.code == 200) {
+                    return x.data
+                }
+                else {
+                    throw new Error(x.errors.join('; '));
+                }
+            }));
     }
 
-    createEvent(event: EventForCreating) {
-        return this.httpClient.post<EventForDetails>(`api/Event/Admin/Events`, event);
+    createEvent(event: IEventForCreating) {
+        return this.httpClient.post<IApiResult<IEventForDetails>>(`api/Event/Admin/Events`, event)
+            .pipe(map(x => {
+                if (x.code == 200) {
+                    return x.data
+                }
+                else {
+                    throw new Error(x.errors.join('; '));
+                }
+            }));
     }
 
-    editEvent(event: EventForEditing) {
-        return this.httpClient.put<EventForDetails>(`api/Event/Admin/Events/${event.eventId}`, event);
+    editEvent(event: IEventForEditing) {
+        return this.httpClient.put<IApiResult<IEventForDetails>>(`api/Event/Admin/Events/${event.eventId}`, event)
+            .pipe(map(x => {
+                if (x.code == 200) {
+                    return x.data
+                }
+                else {
+                    throw new Error(x.errors.join('; '));
+                }
+            }));
     }
 
     deleteEvent(eventId: string) {
-        return this.httpClient.delete<void>(`api/Event/Admin/Events/${eventId}`);
+        return this.httpClient.delete<IApiResult<void>>(`api/Event/Admin/Events/${eventId}`)
+            .pipe(map(x => {
+                if (x.code == 200) {
+                    return x.data
+                }
+                else {
+                    throw new Error(x.errors.join('; '));
+                }
+            }));
     }
 }

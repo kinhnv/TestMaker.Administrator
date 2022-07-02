@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { SelectOption } from '../components';
+import { IApiResult } from '../models';
 
 export class TestBase {
     name!: string;
@@ -27,22 +28,71 @@ export class TestsService {
     constructor(private httpClient: HttpClient) { }
 
     getTestsAsSelectOptions() {
-        return this.httpClient.get<SelectOption[]>(`api/Test/Admin/Tests/selectoptions`);
+        return this.httpClient.get<IApiResult<SelectOption[]>>(`api/Test/Admin/Tests/selectoptions`)
+            .pipe(
+                map(x => {
+                    if (x.code == 200) {
+                        return x.data
+                    }
+                    else {
+                        throw new Error(x.errors.join('; '));
+                    }
+                })
+            );
     }
-    
+
     getEventTypeSelectOptions() {
-        return this.httpClient.get<SelectOption[]>(`api/Event/Admin/Events/Type`);
+        return this.httpClient.get<IApiResult<SelectOption[]>>(`api/Event/Admin/Events/Type`)
+            .pipe(
+                map(x => {
+                    if (x.code == 200) {
+                        return x.data
+                    }
+                    else {
+                        throw new Error(x.errors.join('; '));
+                    }
+                })
+            );
     }
 
     getTest(testId: string): Observable<TestForDetails> {
-        return this.httpClient.get<TestForDetails>(`api/Test/Admin/Tests/${testId}`);
+        return this.httpClient.get<IApiResult<TestForDetails>>(`api/Test/Admin/Tests/${testId}`)
+            .pipe(
+                map(x => {
+                    if (x.code == 200) {
+                        return x.data
+                    }
+                    else {
+                        throw new Error(x.errors.join('; '));
+                    }
+                })
+            );;
     }
 
     createTest(test: TestForCreating) {
-        return this.httpClient.post<TestForDetails>(`api/Test/Admin/Tests`, test);
+        return this.httpClient.post<IApiResult<TestForDetails>>(`api/Test/Admin/Tests`, test)
+            .pipe(
+                map(x => {
+                    if (x.code == 200) {
+                        return x.data
+                    }
+                    else {
+                        throw new Error(x.errors.join('; '));
+                    }
+                })
+            );;
     }
 
     editTest(test: TestForEditing) {
-        return this.httpClient.put<TestForDetails>(`api/Test/Admin/Tests/${test.testId}`, test);
+        return this.httpClient.put<IApiResult<TestForDetails>>(`api/Test/Admin/Tests/${test.testId}`, test)
+            .pipe(map(x => {
+                    if (x.code == 200) {
+                        return x.data
+                    }
+                    else {
+                        throw new Error(x.errors.join('; '));
+                    }
+                })
+            );
     }
 }

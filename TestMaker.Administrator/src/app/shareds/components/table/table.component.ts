@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { TableConfig, TableConfigCloumn } from '..';
+import { IApiResult, IGetPaginationResult } from '../../models';
 
 @Component({
   selector: 'app-table',
@@ -37,7 +38,9 @@ export class TableComponent implements OnInit {
           }
         }
       }
-      this.config.columns.push(deleteOrRestoreColumn);
+      if (!this.isInRecycleBin && !!this.config.recycleBinConfig.deleteEvent) {
+        this.config.columns.push(deleteOrRestoreColumn);
+      }
 
       var recycleBinOrListButton = {
         title: this.isInRecycleBin ? 'icon_list' : 'icon_delete',
@@ -63,9 +66,9 @@ export class TableComponent implements OnInit {
 
   getSource() {
     if (this.config && this.config.url) {
-      return this.httpClient.get(`${this.config.url}${new URL(location.href.replace('#/', '')).search}`)
-        .subscribe(source => {
-          this.source = source;
+      return this.httpClient.get<IApiResult<IGetPaginationResult<any>>>(`${this.config.url}${new URL(location.href.replace('#/', '')).search}`)
+        .subscribe(apiResult => {
+          this.source = apiResult.data.data;
         });
     }
 
