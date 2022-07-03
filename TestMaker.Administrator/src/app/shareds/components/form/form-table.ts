@@ -2,6 +2,7 @@ import { AbstractControl, AbstractControlOptions, AsyncValidatorFn, FormArray, F
 import { IFormControlParams } from './form-config';
 import { FormInput } from './form-input';
 import { FormRadio } from './form-radio';
+import { FormSelect } from "./form-select";
 
 export interface IFormTableParams extends IFormControlParams {
     title: string;
@@ -65,6 +66,16 @@ export class FormTable extends FormArray {
             } else if (control instanceof FormRadio) {
                 // tslint:disable-next-line: max-line-length
                 newControl = new FormRadio({
+                    title: control.params.title,
+                    options: control.params.options,
+                    order: control.params.order,
+                    events: control.params.events,
+                    formState: control.value,
+                    validatorOrOpts: control.validator
+                }) as any;
+            } else if (control instanceof FormSelect) {
+                // tslint:disable-next-line: max-line-length
+                newControl = new FormSelect({
                     title: control.params.title,
                     options: control.params.options,
                     order: control.params.order,

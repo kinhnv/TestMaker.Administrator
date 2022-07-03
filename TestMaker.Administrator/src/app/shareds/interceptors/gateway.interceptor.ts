@@ -32,6 +32,11 @@ export class GatewayInterceptor implements HttpInterceptor {
                     toPath = `${environment.services.event}/api`;
                 }
 
+                if (req.url.startsWith('api/User') && environment.services.event) {
+                    fromPath = 'api/User';
+                    toPath = `${environment.services.user}/api`;
+                }
+
                 const nextReq = req.clone({
                     url: req.url.replace(fromPath, toPath)
                 });

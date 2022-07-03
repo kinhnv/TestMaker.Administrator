@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   services: {
       test: 'http://localhost:40000',
-      event: 'http://localhost:50000'
+      event: 'http://localhost:50000',
+      user: 'http://localhost:60000'
   }
 };
 

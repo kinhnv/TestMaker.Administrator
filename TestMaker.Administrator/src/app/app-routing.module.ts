@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: 'event',
     loadChildren: () => import('./pages/event/event.module').then(m => m.EventModule)
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('./pages/user/user.module').then(m => m.UserModule)
   }
 ];
 
