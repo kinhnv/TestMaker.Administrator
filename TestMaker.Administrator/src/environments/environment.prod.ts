@@ -3,6 +3,7 @@ export const environment = {
   services: {
       test: '/',
       event: '/',
-      user: '/'
+      user: '/',
+      identityServer: 'http://localhost:60001'
   }
 };
