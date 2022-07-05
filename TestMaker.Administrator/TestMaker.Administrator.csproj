@@ -15,7 +15,10 @@
   
   <ItemGroup>
     <PackageReference Include="Ocelot" Version="18.0.0" />
-    <PackageReference Include="Ocelot.ClientGateway" Version="6.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Libraries\Ocelot.ClientGateway\Ocelot.ClientGateway.csproj" />
   </ItemGroup>
 
 </Project>
