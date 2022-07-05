@@ -9,8 +9,10 @@ import { TestsService } from '../../../shareds/services/tests.service';
 @Component({
     selector: 'app-event',
     template: `
+    <app-layout>
         <app-form [config]="formConfig"></app-form>
         <app-candidates *ngIf="pageHelper.isDetailsPage" [eventId]="eventId"></app-candidates>
+    </app-layout>
     `
 })
 export class EventComponent implements OnInit {

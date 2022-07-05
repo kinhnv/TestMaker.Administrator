@@ -6,7 +6,7 @@ import { PageHelper } from '../../shareds/helpers';
 
 @Component({
     selector: 'app-event',
-    template: '<app-table [config]="tableConfig"></app-table>',
+    template: '<app-layout><app-table [config]="tableConfig"></app-table></app-layout>',
 })
 export class EventsComponent implements OnInit {
 

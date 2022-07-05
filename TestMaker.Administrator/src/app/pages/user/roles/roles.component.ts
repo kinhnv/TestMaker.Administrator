@@ -4,7 +4,7 @@ import { PageHelper } from 'src/app/shareds/helpers';
 
 @Component({
   selector: 'app-roles',
-  template: `<app-table [config]="tableConfig"><app-table>`
+  template: `<app-layout><app-table [config]="tableConfig"></app-table></app-layout>`
 })
 export class RolesComponent implements OnInit {
   pageHelper = new PageHelper('/user/role');

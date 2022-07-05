@@ -6,7 +6,7 @@ import { CandidatesService } from '../../../shareds/services/candidates.service'
 
 @Component({
     selector: 'app-candidates',
-    template: `<app-table [config]="tableConfig"><app-table>`
+    template: `<app-layout><app-table [config]="tableConfig"></app-table></app-layout>`
 })
 export class CandidatesComponent implements OnInit {
     pageHelper = new PageHelper('/event/candidate');

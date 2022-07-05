@@ -1,3 +1,4 @@
+export * from './auth';
 export * from './question.model';
 export * from './api-result.model';
 export * from './event';

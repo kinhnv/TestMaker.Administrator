@@ -7,7 +7,7 @@ import { RolesService } from 'src/app/shareds/services/roles.service';
 
 @Component({
   selector: 'app-roles',
-  template: `<app-form [config]="formConfig"></app-form>`
+  template: `<app-layout><app-form [config]="formConfig"></app-form></app-layout>`
 })
 export class RoleComponent implements OnInit {
   pageHelper = new PageHelper('/user/role');

@@ -11,7 +11,7 @@ import { environment } from './../../../../src/environments/environment';
 export class GatewayInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (req.url.startsWith('api/')) {
+        if (req.url.startsWith('api/') || req.url == 'connect/token') {
             if (environment.production) {
                 const nextReq = req.clone({
                     url: req.url.replace('api/', '/api/')
@@ -32,9 +32,14 @@ export class GatewayInterceptor implements HttpInterceptor {
                     toPath = `${environment.services.event}/api`;
                 }
 
-                if (req.url.startsWith('api/User') && environment.services.event) {
+                if (req.url.startsWith('api/User') && environment.services.user) {
                     fromPath = 'api/User';
                     toPath = `${environment.services.user}/api`;
+                }
+
+                if (req.url.startsWith('connect/token') && environment.services.identityServer) {
+                    fromPath = 'connect/token';
+                    toPath = `${environment.services.identityServer}/connect/token`;
                 }
 
                 const nextReq = req.clone({

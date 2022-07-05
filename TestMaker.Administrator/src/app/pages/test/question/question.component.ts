@@ -21,7 +21,7 @@ import { SortingQuestionHelper } from './helpers/sorting-question.helper';
 
 @Component({
     selector: 'app-question',
-    template: '<app-form [config]="formConfig"></app-form>'
+    template: '<app-layout><app-form [config]="formConfig"></app-form></app-layout>'
 })
 export class QuestionComponent implements OnInit {
     pageHelper = new PageHelper('/test/question');

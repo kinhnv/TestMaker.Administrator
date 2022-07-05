@@ -10,8 +10,10 @@ import { PageHelper } from '../../../shareds/helpers';
 @Component({
   selector: 'app-section',
   template: `
-  <app-form [config]="formConfig"></app-form>
-  <app-questions *ngIf="isDetailsPage" [sectionId]="sectionId"><app-questions>
+    <app-layout>
+      <app-form [config]="formConfig"></app-form>
+      <app-questions *ngIf="isDetailsPage" [sectionId]="sectionId"></app-questions>
+    </app-layout>
   `
 })
 export class SectionComponent implements OnInit {

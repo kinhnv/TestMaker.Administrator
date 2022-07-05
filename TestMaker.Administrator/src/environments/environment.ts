@@ -7,7 +7,8 @@ export const environment = {
   services: {
       test: 'http://localhost:40000',
       event: 'http://localhost:50000',
-      user: 'http://localhost:60000'
+      user: 'http://localhost:60000',
+      identityServer: 'http://localhost:60001'
   }
 };
 

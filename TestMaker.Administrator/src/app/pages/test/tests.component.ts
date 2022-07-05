@@ -5,7 +5,7 @@ import { PageHelper } from '../../shareds/helpers';
 
 @Component({
     selector: 'app-test',
-    template: `<app-table [config]="tableConfig"></app-table>`
+    template: `<app-layout><app-table [config]="tableConfig"></app-table></app-layout>`
 })
 export class TestsComponent implements OnInit {
     pageHelper = new PageHelper('/test/test');

@@ -10,8 +10,10 @@ import { TestsService } from '../../../shareds/services/tests.service';
     selector: 'app-test',
     styles: ['app-sections { margin-top: 20px; }'],
     template: `
-        <app-form [config]="formConfig"></app-form>
-        <app-sections *ngIf="isDetailsPage" [testId]="testId"></app-sections>
+        <app-layout>
+            <app-form [config]="formConfig"></app-form>
+            <app-sections *ngIf="isDetailsPage" [testId]="testId"></app-sections>
+        </app-layout>
     `
 })
 export class TestComponent implements OnInit {

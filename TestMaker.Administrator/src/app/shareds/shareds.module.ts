@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormComponent, FormControlComponent, LayoutComponent, TableComponent } from './components';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MaterialExampleModule } from '../material.module';
+import { MaterialModule } from '../material.module';
 import { httpInterceptorProviders } from './interceptors';
-import { TestsService, CandidatesService, EventsService, QuestionsService } from './services';
+import { TestsService, CandidatesService, EventsService, QuestionsService, UsersService, RolesService } from './services';
 import { TitleComponent } from './components/title/title.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { TitleComponent } from './components/title/title.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    MaterialExampleModule
+    MaterialModule
   ],
   exports: [
     LayoutComponent,
@@ -29,11 +30,14 @@ import { TitleComponent } from './components/title/title.component';
     TableComponent
   ],
   providers: [
-      TestsService,
-      QuestionsService,
-      EventsService,
-      CandidatesService,
-      ...httpInterceptorProviders
+    AuthService,
+    CandidatesService,
+    EventsService,
+    QuestionsService,
+    RolesService,
+    TestsService,
+    UsersService,
+    ...httpInterceptorProviders
   ]
 })
 export class SharedsModule { }
