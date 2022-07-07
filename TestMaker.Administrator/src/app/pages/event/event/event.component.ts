@@ -35,17 +35,24 @@ export class EventComponent implements OnInit {
             this.pageHelper.isDetailsPage ? 'Thông tin sự kiện' : 'Sửa sự kiện';
     }
 
-    formType = new FormSelect({
-        title: 'Kiểu sự kiện',
+    formScopeType = new FormSelect({
+        title: 'Phạm vi sự kiện',
         options: [],
         order: 2,
+        events: {}
+    });
+
+    formContentType = new FormSelect({
+        title: 'Nội dung sự kiện',
+        options: [],
+        order: 3,
         events: {}
     });
 
     formTestId = new FormSelect({
         title: 'Bài kiểm tra',
         options: [],
-        order: 3,
+        order: 4,
         events: {}
     });
 
@@ -79,14 +86,19 @@ export class EventComponent implements OnInit {
                 order: 1,
                 validatorOrOpts: Validators.required
             }),
-            'type': this.formType,
+            'scopeType': this.formScopeType,
+            'contentType': this.formContentType,
             'testId': this.formTestId
         })
     };
 
     ngOnInit() {
-        this.testsService.getEventTypeSelectOptions().subscribe(options => {
-            this.formType.params.options = options;
+        this.testsService.getEventScopeType().subscribe(options => {
+            this.formScopeType.params.options = options;
+        });
+
+        this.testsService.getEventContentType().subscribe(options => {
+            this.formContentType.params.options = options;
         });
 
         this.testsService.getTestsAsSelectOptions().subscribe(options => {

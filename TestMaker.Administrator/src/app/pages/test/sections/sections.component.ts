@@ -5,7 +5,15 @@ import { PageHelper } from '../../../shareds/helpers';
 
 @Component({
     selector: 'app-sections',
-    template: `<app-layout><app-table [config]="tableConfig"></app-table></app-layout>`
+    template: `
+    <ng-container *ngIf="testId">
+        <app-table [config]="tableConfig"></app-table>
+    </ng-container>
+    <ng-container *ngIf="!testId">
+        <app-layout>
+            <app-table [config]="tableConfig"></app-table>
+        </app-layout>
+    </ng-container>`
 })
 export class SectionsComponent implements OnInit {
     pageHelper = new PageHelper('/test/section');

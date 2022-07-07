@@ -41,8 +41,22 @@ export class TestsService {
             );
     }
 
-    getEventTypeSelectOptions() {
-        return this.httpClient.get<IApiResult<SelectOption[]>>(`api/Event/Admin/Events/Type`)
+    getEventScopeType() {
+        return this.httpClient.get<IApiResult<SelectOption[]>>(`api/Event/Admin/Events/ScopeType`)
+            .pipe(
+                map(x => {
+                    if (x.code == 200) {
+                        return x.data
+                    }
+                    else {
+                        throw new Error(x.errors.join('; '));
+                    }
+                })
+            );
+    }
+
+    getEventContentType() {
+        return this.httpClient.get<IApiResult<SelectOption[]>>(`api/Event/Admin/Events/ContentType`)
             .pipe(
                 map(x => {
                     if (x.code == 200) {
