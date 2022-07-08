@@ -35,17 +35,24 @@ export class EventComponent implements OnInit {
             this.pageHelper.isDetailsPage ? 'Thông tin sự kiện' : 'Sửa sự kiện';
     }
 
-    formType = new FormSelect({
-        title: 'Kiểu sự kiện',
+    formScopeType = new FormSelect({
+        title: 'Phạm vi sự kiện',
         options: [],
         order: 2,
+        events: {}
+    });
+
+    formquestionContentType = new FormSelect({
+        title: 'Nội dung sự kiện',
+        options: [],
+        order: 3,
         events: {}
     });
 
     formTestId = new FormSelect({
         title: 'Bài kiểm tra',
         options: [],
-        order: 3,
+        order: 4,
         events: {}
     });
 
@@ -79,14 +86,19 @@ export class EventComponent implements OnInit {
                 order: 1,
                 validatorOrOpts: Validators.required
             }),
-            'type': this.formType,
+            'scopeType': this.formScopeType,
+            'questionContentType': this.formquestionContentType,
             'testId': this.formTestId
         })
     };
 
     ngOnInit() {
-        this.testsService.getEventTypeSelectOptions().subscribe(options => {
-            this.formType.params.options = options;
+        this.testsService.getEventScopeType().subscribe(options => {
+            this.formScopeType.params.options = options;
+        });
+
+        this.testsService.getEventContentType().subscribe(options => {
+            this.formquestionContentType.params.options = options;
         });
 
         this.testsService.getTestsAsSelectOptions().subscribe(options => {
@@ -120,7 +132,8 @@ export class EventComponent implements OnInit {
         if (this.pageHelper.isCreatingPage) {
             this.eventsService.createEvent({
                 name: value.name,
-                type: value.type,
+                scopeType: value.scopeType,
+                questionContentType: value.questionContentType,
                 testId: value.testId
             }).subscribe((event) => {
                 this.router.navigate([this.pageHelper.getDetailsPage(event.eventId)]);
@@ -130,7 +143,8 @@ export class EventComponent implements OnInit {
             this.eventsService.editEvent({
                 eventId: value.eventId,
                 name: value.name,
-                type: value.type,
+                scopeType: value.scopeType,
+                questionContentType: value.questionContentType,
                 testId: value.testId
             }).subscribe(() => {
                 this.router.navigate([this.pageHelper.getDetailsPage(value.eventId)]);

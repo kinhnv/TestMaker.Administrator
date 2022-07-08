@@ -6,9 +6,14 @@ import { PageHelper } from '../../../shareds/helpers';
 @Component({
   selector: 'app-questions',
   template: `
-    <app-layout>
+    <ng-container *ngIf="sectionId">
       <app-table [config]="tableConfig"></app-table>
-    </app-layout>`
+    </ng-container>
+    <ng-container *ngIf="!sectionId">
+        <app-layout>
+      <app-table [config]="tableConfig"></app-table>
+        </app-layout>
+    </ng-container>`
 })
 export class QuestionsComponent implements OnInit {
   pageHelper = new PageHelper('/test/question');
