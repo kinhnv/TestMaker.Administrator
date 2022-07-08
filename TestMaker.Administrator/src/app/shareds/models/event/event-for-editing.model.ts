@@ -1,6 +1,7 @@
 export class IEventForEditing {
     eventId!: string;
     name!: string;
-    type!: string;
+    scopeType!: number;
+    questionContentType!: number;
     testId!: string;
 }

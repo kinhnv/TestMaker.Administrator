@@ -2,6 +2,6 @@ export interface IEventForList {
     eventId: string;
     code: string;
     name: string;
-    type: string;
+    scopeType: string;
     testId: string;
 } 

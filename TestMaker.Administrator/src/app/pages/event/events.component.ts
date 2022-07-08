@@ -36,9 +36,9 @@ export class EventsComponent implements OnInit {
                 url: this.pageHelper.getDetailsPage('[eventId]')
             }
         }, {
-            property: 'type',
+            property: 'scopeType',
             title: 'Kiểu sự kiện',
-            text: '[type]'
+            text: '[scopeType]'
         }, {
             property: 'code',
             title: 'Mã',

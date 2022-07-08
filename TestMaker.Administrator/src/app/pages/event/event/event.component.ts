@@ -42,7 +42,7 @@ export class EventComponent implements OnInit {
         events: {}
     });
 
-    formContentType = new FormSelect({
+    formquestionContentType = new FormSelect({
         title: 'Nội dung sự kiện',
         options: [],
         order: 3,
@@ -87,7 +87,7 @@ export class EventComponent implements OnInit {
                 validatorOrOpts: Validators.required
             }),
             'scopeType': this.formScopeType,
-            'contentType': this.formContentType,
+            'questionContentType': this.formquestionContentType,
             'testId': this.formTestId
         })
     };
@@ -98,7 +98,7 @@ export class EventComponent implements OnInit {
         });
 
         this.testsService.getEventContentType().subscribe(options => {
-            this.formContentType.params.options = options;
+            this.formquestionContentType.params.options = options;
         });
 
         this.testsService.getTestsAsSelectOptions().subscribe(options => {
@@ -132,7 +132,8 @@ export class EventComponent implements OnInit {
         if (this.pageHelper.isCreatingPage) {
             this.eventsService.createEvent({
                 name: value.name,
-                type: value.type,
+                scopeType: value.scopeType,
+                questionContentType: value.questionContentType,
                 testId: value.testId
             }).subscribe((event) => {
                 this.router.navigate([this.pageHelper.getDetailsPage(event.eventId)]);
@@ -142,7 +143,8 @@ export class EventComponent implements OnInit {
             this.eventsService.editEvent({
                 eventId: value.eventId,
                 name: value.name,
-                type: value.type,
+                scopeType: value.scopeType,
+                questionContentType: value.questionContentType,
                 testId: value.testId
             }).subscribe(() => {
                 this.router.navigate([this.pageHelper.getDetailsPage(value.eventId)]);

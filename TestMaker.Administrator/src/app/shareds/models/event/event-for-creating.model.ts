@@ -1,5 +1,6 @@
 export class IEventForCreating {
     name!: string;
-    type!: string;
+    scopeType!: number;
+    questionContentType!: number;
     testId!: string;
 }
