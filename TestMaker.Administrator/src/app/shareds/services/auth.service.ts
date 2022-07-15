@@ -15,7 +15,7 @@ export class AuthService {
   login(userName: string, password: string): Observable<boolean> {
     var headers = new HttpHeaders();
 
-    headers = headers.append('Authorization', 'Basic dGVzdHBsYXllcjp0ZXN0cGxheWVy');
+    headers = headers.append('Authorization', 'Basic YWRtaW5pc3RyYXRvcjphZG1pbmlzdHJhdG9y');
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
     return this.httpClient.post<IToken>('connect/token', `grant_type=password&username=${userName}&password=${password}`, {
