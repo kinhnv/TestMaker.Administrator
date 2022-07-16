@@ -25,7 +25,6 @@ export class SortingQuestionHelper implements IQuestionHelper {
     getQuestionForCreating(): IQuestionForCreating {
         const question: ISortingQuestion = this.form.value;
         return {
-            name: question.name,
             contentAsJson: JSON.stringify(<ISortingQuestionContent>{
                 question: question.question,
                 answers: question.answers
@@ -39,7 +38,6 @@ export class SortingQuestionHelper implements IQuestionHelper {
         const question: ISortingQuestion = this.form.value;
         return {
             questionId: question.questionId,
-            name: question.name,
             contentAsJson: JSON.stringify(<ISortingQuestionContent>{
                 question: question.question,
                 answers: question.answers

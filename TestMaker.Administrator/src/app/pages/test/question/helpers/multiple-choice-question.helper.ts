@@ -31,7 +31,6 @@ export class MultipleChoiceQuestionHelper implements IQuestionHelper {
     getQuestionForCreating(): IQuestionForCreating {
         const question: IMultipleChoiceQuestion = this.form.value;
         return {
-            name: question.name,
             contentAsJson: JSON.stringify({
                 question: question.question,
                 answers: question.answers
@@ -45,7 +44,6 @@ export class MultipleChoiceQuestionHelper implements IQuestionHelper {
         const question: IMultipleChoiceQuestion = this.form.value;
         return {
             questionId: question.questionId,
-            name: question.name,
             contentAsJson: JSON.stringify({
                 question: question.question,
                 answers: question.answers
@@ -67,7 +65,6 @@ export class MultipleChoiceQuestionHelper implements IQuestionHelper {
             const content: IMultipleChoiceQuestionContent = JSON.parse(question.contentAsJson);
             value = {
                 questionId: question.questionId,
-                name: question.name,
                 sectionId: question.sectionId,
                 type: question.type,
                 question: content.question,

@@ -4,13 +4,8 @@ import { Router } from '@angular/router';
 import {
     FormConfig,
     FormHiddenField,
-    FormInput,
-    FormTextArea,
     FormSelect,
-    FormTable,
-    FormRadio
 } from '../../../shareds/components';
-import { FormFile } from '../../../shareds/components/form/form-file';
 import { PageHelper } from '../../../shareds/helpers';
 import { IQuestionHelper, QUESTION_TYPE, QUESTION_TYPES } from '../../../shareds/models';
 import { QuestionsService } from '../../../shareds/services';
@@ -83,11 +78,6 @@ export class QuestionComponent implements OnInit {
         buttons: this.buttons,
         form: new FormGroup({
             'questionId': new FormHiddenField(''),
-            'name': new FormInput({
-                title: 'Tên',
-                order: 1,
-                validatorOrOpts: Validators.required
-            }),
             'type': new FormSelect({
                 title: 'Kiểu câu hỏi',
                 options: QUESTION_TYPES,
@@ -117,7 +107,6 @@ export class QuestionComponent implements OnInit {
 
                 this.formConfig.form.setValue({
                     questionId: question.questionId,
-                    name: question.name,
                     type: question.type,
                     sectionId: question.sectionId
                 });
