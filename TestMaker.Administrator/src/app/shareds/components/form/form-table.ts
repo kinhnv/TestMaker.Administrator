@@ -3,6 +3,7 @@ import { IFormControlParams } from './form-config';
 import { FormInput } from './form-input';
 import { FormRadio } from './form-radio';
 import { FormSelect } from "./form-select";
+import { FormTextArea } from "./form-text-area";
 
 export interface IFormTableParams extends IFormControlParams {
     title: string;
@@ -58,6 +59,13 @@ export class FormTable extends FormArray {
         } else if (control instanceof FormControl) {
             if (control instanceof FormInput) {
                 newControl = new FormInput({
+                    title: control.params.title,
+                    order: control.params.order,
+                    formState: control.value,
+                    validatorOrOpts: control.validator
+                }) as any;
+            } else if (control instanceof FormTextArea) {
+                newControl = new FormTextArea({
                     title: control.params.title,
                     order: control.params.order,
                     formState: control.value,

@@ -49,10 +49,17 @@ export class EventComponent implements OnInit {
         events: {}
     });
 
+    formMarkingType = new FormSelect({
+        title: 'Kiểu chấm',
+        options: [],
+        order: 4,
+        events: {}
+    })
+
     formTestId = new FormSelect({
         title: 'Bài kiểm tra',
         options: [],
-        order: 4,
+        order: 5,
         events: {}
     });
 
@@ -88,6 +95,7 @@ export class EventComponent implements OnInit {
             }),
             'scopeType': this.formScopeType,
             'questionContentType': this.formquestionContentType,
+            'markingType': this.formMarkingType,
             'testId': this.formTestId
         })
     };
@@ -97,8 +105,12 @@ export class EventComponent implements OnInit {
             this.formScopeType.params.options = options;
         });
 
-        this.testsService.getEventContentType().subscribe(options => {
+        this.testsService.getEventQuestionContentType().subscribe(options => {
             this.formquestionContentType.params.options = options;
+        });
+
+        this.testsService.getEventMarkingType().subscribe(options => {
+            this.formMarkingType.params.options = options;
         });
 
         this.testsService.getTestsAsSelectOptions().subscribe(options => {
@@ -134,6 +146,7 @@ export class EventComponent implements OnInit {
                 name: value.name,
                 scopeType: value.scopeType,
                 questionContentType: value.questionContentType,
+                markingType: value.markingType,
                 testId: value.testId
             }).subscribe((event) => {
                 this.router.navigate([this.pageHelper.getDetailsPage(event.eventId)]);
@@ -145,6 +158,7 @@ export class EventComponent implements OnInit {
                 name: value.name,
                 scopeType: value.scopeType,
                 questionContentType: value.questionContentType,
+                markingType: value.markingType,
                 testId: value.testId
             }).subscribe(() => {
                 this.router.navigate([this.pageHelper.getDetailsPage(value.eventId)]);

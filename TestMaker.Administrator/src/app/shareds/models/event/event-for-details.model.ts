@@ -4,5 +4,6 @@ export class IEventForDetails {
     name!: string;
     scopeType!: number;
     questionContentType!: number;
+    markingType!: number;
     testId!: string;
 }

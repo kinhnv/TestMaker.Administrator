@@ -55,8 +55,22 @@ export class TestsService {
             );
     }
 
-    getEventContentType() {
-        return this.httpClient.get<IApiResult<SelectOption[]>>(`api/Event/Admin/Events/ContentType`)
+    getEventQuestionContentType() {
+        return this.httpClient.get<IApiResult<SelectOption[]>>(`api/Event/Admin/Events/QuestionContentType`)
+            .pipe(
+                map(x => {
+                    if (x.code == 200) {
+                        return x.data
+                    }
+                    else {
+                        throw new Error(x.errors.join('; '));
+                    }
+                })
+            );
+    }
+
+    getEventMarkingType() {
+        return this.httpClient.get<IApiResult<SelectOption[]>>(`api/Event/Admin/Events/MarkingType`)
             .pipe(
                 map(x => {
                     if (x.code == 200) {
