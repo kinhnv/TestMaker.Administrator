@@ -25,7 +25,6 @@ export class MatchingQuestionHelper implements IQuestionHelper {
     getQuestionForCreating(): IQuestionForCreating {
         const question: IMatchingQuestion = this.form.value;
         return {
-            name: question.name,
             contentAsJson: JSON.stringify(<IMatchingQuestionContent>{
                 question: question.question,
                 answers: question.answers
@@ -39,7 +38,6 @@ export class MatchingQuestionHelper implements IQuestionHelper {
         const question: IMatchingQuestion = this.form.value;
         return {
             questionId: question.questionId,
-            name: question.name,
             contentAsJson: JSON.stringify(<IMatchingQuestionContent>{
                 question: question.question,
                 answers: question.answers

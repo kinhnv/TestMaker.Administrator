@@ -28,7 +28,6 @@ export class BlankFillingQuestionHelper implements IQuestionHelper {
     getQuestionForCreating(): IQuestionForCreating {
         const question: IBlankFillingQuestion = this.form.value;
         return {
-            name: question.name,
             contentAsJson: JSON.stringify(<IBlankFillingQuestionContent>{
                 question: question.question,
                 isFromAPrivateCollection: question.isFromAPrivateCollection,
@@ -43,7 +42,6 @@ export class BlankFillingQuestionHelper implements IQuestionHelper {
         const question: IBlankFillingQuestion = this.form.value;
         return {
             questionId: question.questionId,
-            name: question.name,
             contentAsJson: JSON.stringify(<IBlankFillingQuestionContent>{
                 question: question.question,
                 isFromAPrivateCollection: question.isFromAPrivateCollection,

@@ -5,6 +5,7 @@ import { IQuestionBase, IQuestionForCreating, IQuestionForDetails, IQuestionForE
 interface IMultipleChoiceQuestionAnswer {
     answer: string;
     isCorrect: boolean;
+    rationale: string;
 }
 
 interface IMultipleChoiceQuestion extends IQuestionBase {
@@ -31,7 +32,6 @@ export class MultipleChoiceQuestionHelper implements IQuestionHelper {
     getQuestionForCreating(): IQuestionForCreating {
         const question: IMultipleChoiceQuestion = this.form.value;
         return {
-            name: question.name,
             contentAsJson: JSON.stringify({
                 question: question.question,
                 answers: question.answers
@@ -45,7 +45,6 @@ export class MultipleChoiceQuestionHelper implements IQuestionHelper {
         const question: IMultipleChoiceQuestion = this.form.value;
         return {
             questionId: question.questionId,
-            name: question.name,
             contentAsJson: JSON.stringify({
                 question: question.question,
                 answers: question.answers
@@ -67,12 +66,18 @@ export class MultipleChoiceQuestionHelper implements IQuestionHelper {
             const content: IMultipleChoiceQuestionContent = JSON.parse(question.contentAsJson);
             value = {
                 questionId: question.questionId,
-                name: question.name,
                 sectionId: question.sectionId,
                 type: question.type,
                 question: content.question,
                 answers: content.answers
             };
+            if (value.answers) {
+                value.answers.forEach(answer =>{
+                    if (!answer.rationale) {
+                        answer.rationale = '';
+                    }
+                })
+            }
         }
         this.form.addControl('question', new FormTextArea({
             title: 'Câu hỏi',
@@ -90,9 +95,13 @@ export class MultipleChoiceQuestionHelper implements IQuestionHelper {
                 'isCorrect': new FormRadio({
                     title: 'Là câu trả lời đúng',
                     options: this.isCorrectOptions,
-                    order: 1,
+                    order: 2,
                     formState: false,
                     validatorOrOpts: Validators.required
+                }),
+                'rationale': new FormTextArea({
+                    title: 'Lý do',
+                    order: 3
                 })
             },
             formState: value ? value.answers : [],

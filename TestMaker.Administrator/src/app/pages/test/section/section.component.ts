@@ -121,8 +121,6 @@ export class SectionComponent implements OnInit {
           }
           this.formConfig.form.setValue(apiResult.data);
         });
-
-      this.formTestId.disable();
     }
 
     if (this.pageHelper.isDetailsPage) {

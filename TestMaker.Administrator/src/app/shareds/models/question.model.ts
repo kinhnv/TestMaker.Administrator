@@ -27,7 +27,6 @@ export interface IQuestion extends IQuestionBase {
 }
 
 export interface IQuestionBase {
-    name: string;
     type: QUESTION_TYPE;
     media?: FileList;
     sectionId: string;
