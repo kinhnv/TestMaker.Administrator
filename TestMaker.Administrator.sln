@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LIbraries", "LIbraries", "{661CEEF6-8347-43C1-9687-09F1DED821BA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{661CEEF6-8347-43C1-9687-09F1DED821BA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ocelot.ClientGateway", "..\..\System.Gateway\Libraries\Ocelot.ClientGateway\Ocelot.ClientGateway.csproj", "{DAE4845A-CD37-4F40-ABB1-A549588F1613}"
 EndProject
